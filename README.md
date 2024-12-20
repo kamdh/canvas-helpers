@@ -29,6 +29,22 @@ Pull requests to improve these tools are very welcome.
 
 
 ### Scripts and capabilities
+- **ABET student data collection**:
+For accreditation, we are required to include examples of student work.
+I wrote 2 scripts to help with this process.
+First, users should edit the `GROUPS` array and run `allsubmissions.py` to download all student work from their course.
+Example usage: `python3 allsubmissions.py https://wwu.instructure.com/courses/1762040`.
+Next, the user needs to download the CSV file of the student gradebook from Canvas.
+Edit `collect_student_data.py` to point to the grades file, the directory containing student work from step 1, and the destination directory for student work which should be formatted as:
+```
+Student_Work:
+ - Poor
+ - Average
+ - Good
+```
+The user can also set the quantile thresholds that determine these categories; I have selected Poor: [0.1, 0.5], Average: [0.5, 0.75], Good: [0.75, 1].
+Running the script `python3 collect_student_data.py` will populate the directories with the data it can find and provide warnings about any missing data.
+
 - [Attachment file/comment/mark uploader](feedbackuploader.py): When assignment marks are processed outside of Canvas, they can already be uploaded in bulk from a spreadsheet using the existing tools (import/export grades).
 However, it is not possible to add comments or upload attachments in this way, which means a tiresomely repetitive task of attaching these documents one-by-one.
 This script allows you to upload a set of feedback attachments, grades and/or generic or individual text comments in bulk, and is compatible with both individual assignments and group-based ones.
